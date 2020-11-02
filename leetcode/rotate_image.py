@@ -1,4 +1,19 @@
 from typing import List
+
+class SimpleSolution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        N = len(matrix)
+        # transpose matrix
+        for i in range(N):
+            for j in range(i, N):
+                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+        for row in range(N):
+            matrix[row].reverse()
+        return matrix
+
 class Solution:
     def rotate_sides(self, matrix: List[List[int]]) -> None:
         N = len(matrix)
