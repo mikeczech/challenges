@@ -1,45 +1,25 @@
 import math
 from typing import List
+from collections import defaultdict
 
 class Solution:
-    def contains(self, value, snums):
-        l = 0
-        r = len(snums) - 1
-        while l <= r:
-            mid = math.floor((l + r) / 2)
-            if snums[mid] == value:
-                return True
-            if snums[mid] > value:
-                r =  mid - 1
-            else:
-                l = mid + 1
-        return False
-
-    def twoSum(self, n_a: int,  nums: List[int], cache) -> List[List[int]]:
-        if len(nums) < 2:
-            return []
-        ret = []
-        for i, n_b in enumerate(nums):
-            key = tuple(sorted([n_a, n_b]))
-            if key not in cache: 
-                n_c = - n_a - n_b
-                if self.contains(n_c, nums[:i] + nums[i+1:]):
-                    ret.append(tuple(sorted([n_a, n_b, n_c])))
-                cache.add(key)
-                
-        return ret
 
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        nums = sorted(nums)
-        cache = set()
+        m = defaultdict(int)
+        for n in nums:
+            m[n] += 1
         ret = set()
-        for i, n_a in enumerate(nums):
-            if n_a not in cache:
-                two_sum_ret = self.twoSum(n_a, nums[:i] + nums[i+1:])
-                for s in two_sum_ret:
-                    ret.add(s)
-                cache.add(n_a)
-        return ret
+        for n_a in m:
+            m[n_a] -= 1
+            for n_b in m:
+                if m[n_b] > 0:
+                    m[n_b] -= 1
+                    n_c = - n_a - n_b
+                    if n_c in m and m[n_c] > 0:
+                        ret.add(tuple(sorted([n_a, n_b, n_c])))
+                    m[n_b] += 1
+            m[n_a] += 1
 
+        return ret
 
 print(Solution().threeSum([0, 1, 1]))
