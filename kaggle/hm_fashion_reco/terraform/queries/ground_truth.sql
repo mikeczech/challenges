@@ -13,8 +13,11 @@ SELECT
   dates.obs_dat,
   dates.t_dat,
   customer_id,
-  article_id,
+  trans.article_id,
+  section_no,
   1 AS relevance
 FROM dates
 LEFT JOIN `zenscr-seefood-dev.hm_kaggle.transactions` AS trans
        ON dates.t_dat = trans.t_dat
+LEFT JOIN `zenscr-seefood-dev.hm_kaggle.articles` articles
+       ON trans.article_id = articles.article_id

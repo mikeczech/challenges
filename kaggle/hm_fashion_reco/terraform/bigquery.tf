@@ -40,3 +40,12 @@ resource "google_bigquery_table" "misc_article_sales" {
     use_legacy_sql = false
   }
 }
+
+resource "google_bigquery_table" "neg_by_popularity" {
+  dataset_id = google_bigquery_dataset.hm_kaggle_reco.dataset_id
+  table_id   = "neg_by_popularity"
+  view {
+    query = file("queries/neg_by_popularity.sql")
+    use_legacy_sql = false
+  }
+}
