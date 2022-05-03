@@ -49,3 +49,12 @@ resource "google_bigquery_table" "neg_by_popularity" {
     use_legacy_sql = false
   }
 }
+
+resource "google_bigquery_table" "training_data" {
+  dataset_id = google_bigquery_dataset.hm_kaggle_reco.dataset_id
+  table_id   = "training_data"
+  view {
+    query = file("queries/training_data.sql")
+    use_legacy_sql = false
+  }
+}
