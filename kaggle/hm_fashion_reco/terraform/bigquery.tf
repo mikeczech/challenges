@@ -31,3 +31,12 @@ resource "google_bigquery_table" "feature_customer" {
     use_legacy_sql = false
   }
 }
+
+resource "google_bigquery_table" "misc_article_sales" {
+  dataset_id = google_bigquery_dataset.hm_kaggle_reco.dataset_id
+  table_id   = "misc_article_sales"
+  view {
+    query = file("queries/misc_article_sales.sql")
+    use_legacy_sql = false
+  }
+}
