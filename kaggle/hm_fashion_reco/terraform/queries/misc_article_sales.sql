@@ -13,7 +13,7 @@ sales AS (
     COUNT(*) num_sales
   FROM dates
   LEFT JOIN `zenscr-seefood-dev.hm_kaggle.transactions` trans
-         ON trans.t_dat < obs_dat AND trans.t_dat >= DATE_SUB(obs_dat, INTERVAL 3 DAY)
+         ON trans.t_dat < obs_dat AND trans.t_dat >= DATE_SUB(obs_dat, INTERVAL 7 DAY)
   LEFT JOIN `zenscr-seefood-dev.hm_kaggle.articles` articles
          ON trans.article_id = articles.article_id
   GROUP BY obs_dat, section_no, articles.product_code, article_id

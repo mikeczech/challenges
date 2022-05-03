@@ -13,7 +13,7 @@ WITH gt_and_neg AS (
     article_id,
     rank,
     relevance
-  FROM `zenscr-seefood-dev.hm_kaggle_reco.neg_by_popularity` WHERE rank <= 100
+  FROM `zenscr-seefood-dev.hm_kaggle_reco.neg_by_popularity` WHERE rank <= 200
 )
 SELECT
     obs_dat,

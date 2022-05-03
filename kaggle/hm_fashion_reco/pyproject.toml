@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "hm_fashion_reco"
+name = "hm_fashion"
 version = "0.1.0"
 description = ""
 authors = ["Mike Czech <mike.czech@xing.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "3.9.7"
 pandas = "^1.4.2"
 kaggle = "^1.5.12"
 xgboost = "^1.6.0"
@@ -15,6 +15,9 @@ nb-black = "^1.0.7"
 black = "^22.3.0"
 matplotlib = "^3.5.1"
 rich = "^12.3.0"
+google-cloud-bigquery = {extras = ["bqstorage", "pandas"], version = "^3.0.1"}
+db-dtypes = "^1.0.0"
+lightgbm = "^3.3.2"
 
 [tool.poetry.dev-dependencies]
 
