@@ -1,0 +1,9 @@
+SELECT
+  obs_dat,
+  t_dat
+FROM
+  UNNEST(GENERATE_DATE_ARRAY("2020-04-01", "2020-09-23")) AS obs_dat
+LEFT JOIN
+  UNNEST(GENERATE_DATE_ARRAY("2018-09-20", "2020-09-23")) AS t_dat
+ON
+  t_dat < obs_dat

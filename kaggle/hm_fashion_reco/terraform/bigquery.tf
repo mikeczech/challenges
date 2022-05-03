@@ -13,3 +13,21 @@ resource "google_bigquery_table" "ground_truth" {
     use_legacy_sql = false
   }
 }
+
+resource "google_bigquery_table" "feature_base_dates" {
+  dataset_id = google_bigquery_dataset.hm_kaggle_reco.dataset_id
+  table_id   = "feat_base_dates"
+  view {
+    query = file("queries/feat_base_dates.sql")
+    use_legacy_sql = false
+  }
+}
+
+resource "google_bigquery_table" "feature_customer" {
+  dataset_id = google_bigquery_dataset.hm_kaggle_reco.dataset_id
+  table_id   = "feat_customer"
+  view {
+    query = file("queries/feat_customer.sql")
+    use_legacy_sql = false
+  }
+}
