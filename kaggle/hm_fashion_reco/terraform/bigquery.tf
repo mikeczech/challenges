@@ -41,11 +41,11 @@ resource "google_bigquery_table" "misc_article_sales" {
   }
 }
 
-resource "google_bigquery_table" "neg_by_popularity" {
+resource "google_bigquery_table" "cand_article_sales" {
   dataset_id = google_bigquery_dataset.hm_kaggle_reco.dataset_id
-  table_id   = "neg_by_popularity"
+  table_id   = "cand_article_sales"
   view {
-    query = file("queries/neg_by_popularity.sql")
+    query = file("queries/cand_article_sales.sql")
     use_legacy_sql = false
   }
 }

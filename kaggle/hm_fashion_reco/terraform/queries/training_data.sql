@@ -3,7 +3,7 @@ WITH gt_and_neg AS (
     obs_dat,
     customer_id,
     article_id,
-    -1 AS rank,
+    -1.0 AS score,
     relevance
   FROM `zenscr-seefood-dev.hm_kaggle_reco.ground_truth`
   UNION ALL
@@ -11,16 +11,15 @@ WITH gt_and_neg AS (
     obs_dat,
     customer_id,
     article_id,
-    rank,
+    score,
     relevance
-  FROM `zenscr-seefood-dev.hm_kaggle_reco.neg_by_popularity` WHERE rank <= 200
+  FROM `zenscr-seefood-dev.hm_kaggle_reco.cand_article_sales`
 )
 SELECT
     obs_dat,
     customer_id,
     article_id,
-    MAX(rank) AS rank,
+    MAX(score) AS score,
     MAX(relevance) AS relevance
 FROM gt_and_neg
-WHERE obs_dat = "2020-04-01"
 GROUP BY obs_dat, customer_id, article_id

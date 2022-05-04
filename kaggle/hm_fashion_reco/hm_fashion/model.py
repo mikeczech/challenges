@@ -11,6 +11,7 @@ import lightgbm
 import pandas as pd
 
 FEATURES = [
+    "score",
     "feat_price_affinity",
     "feat_dark_affinity",
     "feat_dusty_light_affinity"
@@ -49,7 +50,7 @@ def get_pipeline(features: List[str]):
     )
 
 
-def get_lgm_ranker_pipeline(
+def get_ranker_pipeline(
     features=FEATURES,
 ):
     """
