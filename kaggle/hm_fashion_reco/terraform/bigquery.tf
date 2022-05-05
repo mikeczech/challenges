@@ -32,6 +32,24 @@ resource "google_bigquery_table" "feature_customer" {
   }
 }
 
+resource "google_bigquery_table" "feature_article" {
+  dataset_id = google_bigquery_dataset.hm_kaggle_reco.dataset_id
+  table_id   = "feat_article"
+  view {
+    query = file("queries/feat_article.sql")
+    use_legacy_sql = false
+  }
+}
+
+resource "google_bigquery_table" "feature_customer_article_color" {
+  dataset_id = google_bigquery_dataset.hm_kaggle_reco.dataset_id
+  table_id   = "feat_customer_article_color"
+  view {
+    query = file("queries/feat_customer_article_color.sql")
+    use_legacy_sql = false
+  }
+}
+
 resource "google_bigquery_table" "misc_article_sales" {
   dataset_id = google_bigquery_dataset.hm_kaggle_reco.dataset_id
   table_id   = "misc_article_sales"
