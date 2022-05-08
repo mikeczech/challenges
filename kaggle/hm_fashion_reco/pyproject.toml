@@ -19,6 +19,16 @@ google-cloud-bigquery = {extras = ["bqstorage", "pandas"], version = "^3.0.1"}
 db-dtypes = "^1.0.0"
 lightgbm = "^3.3.2"
 shap = "^0.40.0"
+gensim = "^4.2.0"
+umap-learn = "^0.5.3"
+datashader = "^0.14.0"
+bokeh = "^2.4.2"
+holoviews = "^1.14.8"
+scikit-image = "^0.19.2"
+colorcet = "^3.0.0"
+pandas-gbq = "^0.17.4"
+torch = "^1.11.0"
+mlflow = "^1.25.1"
 
 [tool.poetry.dev-dependencies]
 
