@@ -5,6 +5,33 @@ resource "google_bigquery_dataset" "hm_kaggle_reco" {
   location                    = "us-central1"
 }
 
+resource "google_bigquery_table" "customers_sample_001" {
+  dataset_id = google_bigquery_dataset.hm_kaggle_reco.dataset_id
+  table_id   = "sample_customers_001"
+  view {
+    query = file("queries/sampling/customers_001.sql")
+    use_legacy_sql = false
+  }
+}
+
+resource "google_bigquery_table" "customers_sample_01" {
+  dataset_id = google_bigquery_dataset.hm_kaggle_reco.dataset_id
+  table_id   = "sample_customers_01"
+  view {
+    query = file("queries/sampling/customers_01.sql")
+    use_legacy_sql = false
+  }
+}
+
+resource "google_bigquery_table" "customers_sample_05" {
+  dataset_id = google_bigquery_dataset.hm_kaggle_reco.dataset_id
+  table_id   = "sample_customers_05"
+  view {
+    query = file("queries/sampling/customers_05.sql")
+    use_legacy_sql = false
+  }
+}
+
 resource "google_bigquery_table" "ground_truth" {
   dataset_id = google_bigquery_dataset.hm_kaggle_reco.dataset_id
   table_id   = "ground_truth"
@@ -50,20 +77,38 @@ resource "google_bigquery_table" "feature_customer_article_color" {
   }
 }
 
-resource "google_bigquery_table" "misc_article_sales" {
-  dataset_id = google_bigquery_dataset.hm_kaggle_reco.dataset_id
-  table_id   = "misc_article_sales"
-  view {
-    query = file("queries/misc_article_sales.sql")
-    use_legacy_sql = false
-  }
-}
-
 resource "google_bigquery_table" "cand_article_sales" {
   dataset_id = google_bigquery_dataset.hm_kaggle_reco.dataset_id
   table_id   = "cand_article_sales"
   view {
     query = file("queries/cand_article_sales.sql")
+    use_legacy_sql = false
+  }
+}
+
+resource "google_bigquery_table" "cand_article_similarity" {
+  dataset_id = google_bigquery_dataset.hm_kaggle_reco.dataset_id
+  table_id   = "cand_article_similarity"
+  view {
+    query = file("queries/cand_article_similarity.sql")
+    use_legacy_sql = false
+  }
+}
+
+resource "google_bigquery_table" "cand_prev_purchases" {
+  dataset_id = google_bigquery_dataset.hm_kaggle_reco.dataset_id
+  table_id   = "cand_prev_purchases"
+  view {
+    query = file("queries/cand_prev_purchases.sql")
+    use_legacy_sql = false
+  }
+}
+
+resource "google_bigquery_table" "cand_article_department_sales" {
+  dataset_id = google_bigquery_dataset.hm_kaggle_reco.dataset_id
+  table_id   = "cand_article_department_sales"
+  view {
+    query = file("queries/cand_article_department_sales.sql")
     use_legacy_sql = false
   }
 }
