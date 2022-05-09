@@ -72,25 +72,38 @@ SELECT
   prev_purchases_score,
   article_department_sales_score,
 
+  -- date features
+  EXTRACT(MONTH FROM base.obs_dat) AS obs_month,
+
   -- customer features
   feat_customer_age,
   feat_customer_price_affinity,
   feat_customer_stdev_price,
-  feat_customer_num_purchases
+  feat_customer_num_purchases,
+  feat_customer_last_purchase_num_days,
+  feat_customer_club_member_status,
+  feat_customer_active,
+  feat_customer_fashion_news_frequency,
+  feat_customer_sales_channel_one_affinity,
+  feat_customer_sales_channel_two_affinity,
 
   -- article features
-  feat_article_average_price,
-  feat_article_stdev_price,
-  feat_article_num_sales,
-  feat_article_num_distinct_customers,
-  feat_article_average_age,
-  feat_article_stdev_age,
-
+  feat_article_avg_price_1day,
+  feat_article_avg_price_3day,
+  feat_article_avg_price_7day,
+  feat_article_num_sales_1day,
+  feat_article_num_sales_3day,
+  feat_article_num_sales_7day,
+  feat_article_avg_customer_age,
+  feat_article_product_type_no,
+  feat_article_graphical_appearance_no,
   feat_article_colour_group_code,
   feat_article_perceived_colour_value_id,
-  feat_article_section_no,
+  feat_article_perceived_colour_master_id,
   feat_article_index_code,
+  feat_article_section_no,
   feat_article_garment_group_no
+
 FROM base
 LEFT JOIN hm_kaggle_reco.feat_customer fc
        ON base.obs_dat = fc.obs_dat AND base.customer_short_id = fc.customer_short_id
