@@ -10,6 +10,11 @@ def main():
 
     print(location)
 
+    seeds, dicts = parse_map(input_map, part_2 = True)
+    location = determine_closest_location(seeds, dicts, part_2 = True)
+
+    print(location)
+
 
 def run_tests():
     input_map = """
@@ -54,6 +59,11 @@ humidity-to-location map:
     print(location)
     assert location == 35
 
+    seed_pairs, dicts = parse_map(input_map, part_2 = True)
+    location = determine_closest_location(seed_pairs, dicts, part_2 = True)
+    print(location)
+    assert location == 46
+
 
 class OffsetDict:
 
@@ -69,28 +79,50 @@ class OffsetDict:
             return None
 
 
-def determine_closest_location(seeds, dicts):
+def determine_closest_location(seeds, dicts, part_2: bool = False):
     locations = []
 
-    for s in seeds:
-        target = s
-        for d in dicts:
-            match = None
-            for dd in d:
-                match = dd.get(target)
-                if match:
-                    break
-            if not match:
-                match = target
-            target = match
+    if part_2:
+        for pair in seeds:
+            print(pair)
+            for s in range(pair[0], pair[0] + pair[1]):
+                target = s
+                for d in dicts: # TODO refactor this
+                    match = None
+                    for dd in d:
+                        match = dd.get(target)
+                        if match:
+                            break
+                    if not match:
+                        match = target
+                    target = match
 
-        locations.append(target)
+                locations.append(target)
+    else:
+        for s in seeds:
+            target = s
+            for d in dicts: # TODO refactor this
+                match = None
+                for dd in d:
+                    match = dd.get(target)
+                    if match:
+                        break
+                if not match:
+                    match = target
+                target = match
+
+            locations.append(target)
 
     return min(locations)
 
 
-def parse_map(input_map: str):
+def parse_map(input_map: str, part_2: bool = False):
     seeds = [int(s) for s in re.search("seeds: ((\d+\s?)+)", input_map).group(1).split(" ")]
+    if part_2:
+        seed_pairs = []
+        for i in range(1, len(seeds), 2):
+            seed_pairs.append((seeds[i - 1], seeds[i]))
+        seeds = seed_pairs
 
     dictionaries = []
     matches = re.finditer("(\w+)-to-(\w+) map:\n((\d+\s?)+)", input_map)
