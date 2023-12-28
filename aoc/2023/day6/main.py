@@ -3,7 +3,8 @@ import re
 def main():
     with open("input", "r") as f:
         races_input = f.read()
-    races = parse_races(races_input)
+    races = parse_races(races_input, part_2=True)
+    print(races)
     num_ways = num_ways_to_beat_the_record(races)
     print(num_ways)
 
@@ -20,9 +21,11 @@ Distance:  9  40  200
     assert num_ways == 288
 
 
-def parse_races(races_input: str):
-    times = [int(t.strip()) for t in re.search("Time:\s+((\d+\s*)+)", races_input).group(1).split(" ") if t != '']
-    distances = [int(d.strip()) for d in re.search("Distance:\s+((\d+\s*)+)", races_input).group(1).split(" ") if d != '']
+def parse_races(races_input: str, part_2 = False):
+    if part_2:
+        races_input = races_input.replace(" ", "")
+    times = [int(t.strip()) for t in re.search("Time:\s*((\d+\s*)+)", races_input).group(1).split(" ") if t != '']
+    distances = [int(d.strip()) for d in re.search("Distance:\s*((\d+\s*)+)", races_input).group(1).split(" ") if d != '']
 
     return times, distances
 
