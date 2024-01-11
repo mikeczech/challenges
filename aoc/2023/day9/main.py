@@ -1,5 +1,9 @@
 def main():
-    pass
+    with open("input", "r") as f:
+        input_lines = f.read().splitlines()
+    history = parse_history(input_lines)
+    next_values = [predict_next_value_part_two(seq) for seq in history]
+    print(sum(next_values))
 
 def run_tests():
     input_lines = [
@@ -9,8 +13,11 @@ def run_tests():
     ]
 
     history = parse_history(input_lines)
-    next_values = [predict_next_value(seq) for seq in history]
-    assert sum(next_values) == 114
+    # next_values = [predict_next_value(seq) for seq in history]
+    # assert sum(next_values) == 114
+
+    next_values = [predict_next_value_part_two(seq) for seq in history]
+    assert sum(next_values) == 2
 
 def parse_history(input_lines):
     return [[int(s) for s in l.split(" ")] for l in input_lines]
@@ -34,6 +41,19 @@ def predict_next_value(seq):
 
     return diffs[0][-1]
 
+def predict_next_value_part_two(seq):
+    diffs = [seq]
+    while any([i != 0 for i in diffs[-1]]):
+        diffs.append(compute_diff(diffs[-1]))
+
+    diffs[-1].insert(0, 0)
+    for i in reversed(range(1, len(diffs))):
+        last = diffs[i][0]
+        prev = diffs[i-1][0]
+        diffs[i-1].insert(0, prev - last)
+
+    return diffs[0][0]
+
 
 if __name__ == "__main__":
-    run_tests()
+    main()
